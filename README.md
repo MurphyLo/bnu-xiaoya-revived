@@ -64,7 +64,7 @@ apksigner verify -v bnu-xiaoya-revived.apk
 
 ## 修改细节
 
-### 兼容新登录机制 2026.1.16
+### 2026.1.16 兼容新登录机制
 
 ```
 1. GET /cas/oauth2.0/authorize   → OAuth2 授权入口
@@ -76,9 +76,17 @@ apksigner verify -v bnu-xiaoya-revived.apk
 - `Constants.smali`: 更新登录相关 URL 常量
 - `Assistant.smali`: 更新登录流程（OAuth2 authorize + secondAuth + CAS login），并放行 JSON 响应
 
-### 修复课表同步超时问题 2026.1.16
+### 2026.1.16 修复课表同步超时问题
 
-- `SemesterHelper$getCurrentSemesterInfo$2.smali`: 直接返回空的 `SemesterInfo`。取消请求旧配置服务器的当前学期信息，点击同步按钮立即进入课表拉取
+取消请求旧配置服务器的当前学期信息，点击同步按钮立即进入课表拉取。
+
+- `SemesterHelper$getCurrentSemesterInfo$2.smali`: 直接返回空的 `SemesterInfo`。
+
+### 2026.1.17 修复图书馆入口
+
+替换 `馆藏查询` 与 `借阅查询` 入口 URL
+
+- `apktool_output/res/values/strings.xml`: 更新 `library_book_url` 与 `library_borrow_url`
 
 ## 致谢
 

@@ -86,8 +86,8 @@
     <string name="input_password">数字京师密码</string>
     <string name="input_username">学号</string>
     <string name="item_view_role_description">Tab</string>
-    <string name="library_book_url" formatted="false">http://cas.bnu.edu.cn/cas/login?service=https%3A%2F%2Fbnu-primo.hosted.exlibrisgroup.com%3A443%2Fprimo_library%2Flibweb%2FcasRedirect%3FauthenticationProfile%3D86BNU_CAS%26targetURL%3Dhttps%253A%252F%252Fbnu-primo.hosted.exlibrisgroup.com%252Fprimo-explore%252Fsearch%253Fvid%253D86BNU%2526lang%253Dzh%2525255FCN%2526sortby%253Drank%2526from-new-ui%253D1%2526authenticationProfile%253D86BNU_CAS%26institution%3D86BNU</string>
-    <string name="library_borrow_url" formatted="false">http://cas.bnu.edu.cn/cas/login?service=https%3A%2F%2Fbnu-primo.hosted.exlibrisgroup.com%3A443%2Fprimo_library%2Flibweb%2FcasRedirect%3FauthenticationProfile%3D86BNU_CAS%26targetURL%3Dhttps%253A%252F%252Fbnu-primo.hosted.exlibrisgroup.com%252Fprimo-explore%252Faccount%253Fvid%253D86BNU%2526lang%253Dzh%2525255FCN%2526fromLogin%253Dtrue%2526from-new-ui%253D1%2526authenticationProfile%253D86BNU_CAS%26institution%3D86BNU</string>
+    <string name="library_book_url" formatted="false">https://libdiscover.bnu.edu.cn/cas-bnu/login.jsp?service=https%3A%2F%2Flibdiscover.bnu.edu.cn%2Ftransition%3FtargetUrl%3Dhttps%253A%252F%252Flibdiscover.bnu.edu.cn</string>
+    <string name="library_borrow_url" formatted="false">https://libdiscover.bnu.edu.cn/cas-bnu/login.jsp?service=https%3A%2F%2Flibdiscover.bnu.edu.cn%2Ftransition%3FtargetUrl%3Dhttps%253A%252F%252Flibdiscover.bnu.edu.cn%252Fentrance%252FmyLibEntrance%252FmyLibIndex%252FMyLibBorrowNow</string>
     <string name="load_current_week">加载当前周次</string>
     <string name="login">登录</string>
     <string name="login_error">登录错误</string>
