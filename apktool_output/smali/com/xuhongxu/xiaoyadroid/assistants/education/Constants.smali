@@ -76,9 +76,13 @@
 
 .field public static final URL_GRADE_INFO:Ljava/lang/String; = "http://zyfw.bnu.edu.cn/jw/common/getStuGradeSpeciatyInfo.action"
 
-.field public static final URL_LOGIN_ONEBNU:Ljava/lang/String; = "https://cas.bnu.edu.cn/cas/login?service=https%3A%2F%2Fone.bnu.edu.cn%2Fdcp%2Findex.jsp"
+.field public static final URL_LOGIN_ONEBNU:Ljava/lang/String; = "https://cas.bnu.edu.cn/cas/oauth2.0/authorize?client_id=nup&response_type=code&redirect_uri=https://one.bnu.edu.cn/tp_nup/cas.html?service=https://one.bnu.edu.cn/tp_nup/&scope=all"
 
 .field public static final URL_LOGIN_ZYFW:Ljava/lang/String; = "http://zyfw.bnu.edu.cn"
+
+.field public static final URL_SECOND_AUTH:Ljava/lang/String; = "https://cas.bnu.edu.cn/cas/secondAuth"
+
+.field public static final URL_CAS_LOGIN:Ljava/lang/String; = "https://cas.bnu.edu.cn/cas/login"
 
 .field public static final URL_SCORE_TOKEN:Ljava/lang/String; = "http://zyfw.bnu.edu.cn/frame/menus/js/SetTokenkey.jsp"
 

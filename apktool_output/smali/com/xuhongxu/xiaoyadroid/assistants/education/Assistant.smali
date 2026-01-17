@@ -553,7 +553,7 @@
 .method private final fetchLoginParams()Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant$LoginParams;
     .locals 6
 
-    const-string v0, "https://cas.bnu.edu.cn/cas/login?service=https%3A%2F%2Fone.bnu.edu.cn%2Fdcp%2Findex.jsp"
+    const-string v0, "https://cas.bnu.edu.cn/cas/oauth2.0/authorize?client_id=nup&response_type=code&redirect_uri=https://one.bnu.edu.cn/tp_nup/cas.html?service=https://one.bnu.edu.cn/tp_nup/&scope=all"
 
     .line 132
     invoke-static {v0}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
@@ -4926,8 +4926,138 @@
     invoke-virtual {v0}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant$LoginParams;->component3()Ljava/lang/String;
 
     move-result-object v0
+    # secondAuth call - Step 2 of new login flow
+    const-string v5, "https://cas.bnu.edu.cn/cas/secondAuth"
 
-    const-string v5, "https://cas.bnu.edu.cn/cas/login?service=https%3A%2F%2Fone.bnu.edu.cn%2Fdcp%2Findex.jsp"
+    invoke-static {v5}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
+    const-string v6, "Content-Type"
+
+    const-string v7, "application/x-www-form-urlencoded"
+
+    invoke-interface {v5, v6, v7}, Lorg/jsoup/Connection;->header(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
+    iget-object v6, p0, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->cookies:Ljava/util/Map;
+
+    invoke-interface {v5, v6}, Lorg/jsoup/Connection;->cookies(Ljava/util/Map;)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
+    iget v6, p0, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->timeout:I
+
+    invoke-interface {v5, v6}, Lorg/jsoup/Connection;->timeout(I)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
+    const-string v6, "method"
+
+    const-string v7, "check"
+
+    invoke-interface {v5, v6, v7}, Lorg/jsoup/Connection;->data(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
+    const-string v6, "captcha"
+
+    const-string v7, "null"
+
+    invoke-interface {v5, v6, v7}, Lorg/jsoup/Connection;->data(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
+    const-string v6, "random"
+
+    invoke-static {}, Ljava/lang/Math;->random()D
+
+    move-result-wide v7
+
+    invoke-static {v7, v8}, Ljava/lang/String;->valueOf(D)Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-interface {v5, v6, v7}, Lorg/jsoup/Connection;->data(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
+    const-string v6, "ul"
+
+    new-instance v7, Ljava/lang/StringBuilder;
+
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v8, ""
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v8, p0, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->username:Ljava/lang/String;
+
+    invoke-virtual {v8}, Ljava/lang/String;->length()I
+
+    move-result v8
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-interface {v5, v6, v7}, Lorg/jsoup/Connection;->data(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
+    const-string v6, "pl"
+
+    new-instance v7, Ljava/lang/StringBuilder;
+
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v8, ""
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v8, p0, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->password:Ljava/lang/String;
+
+    invoke-virtual {v8}, Ljava/lang/String;->length()I
+
+    move-result v8
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-interface {v5, v6, v7}, Lorg/jsoup/Connection;->data(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
+    const-string v6, "rsa"
+
+    invoke-interface {v5, v6, v0}, Lorg/jsoup/Connection;->data(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
+    const/4 v6, 0x1
+
+    invoke-interface {v5, v6}, Lorg/jsoup/Connection;->ignoreContentType(Z)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
+    sget-object v6, Lorg/jsoup/Connection$Method;->POST:Lorg/jsoup/Connection$Method;
+
+    invoke-interface {v5, v6}, Lorg/jsoup/Connection;->method(Lorg/jsoup/Connection$Method;)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
+    invoke-interface {v5}, Lorg/jsoup/Connection;->execute()Lorg/jsoup/Connection$Response;
+
+    # End of secondAuth call
+
+    const-string v5, "https://cas.bnu.edu.cn/cas/login"
 
     .line 394
     invoke-static {v5}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
@@ -4977,14 +5107,32 @@
 
     move-result-object v5
 
-    const-string v6, "code"
+    const-string v6, "service"
 
-    const-string v7, "code"
+    const-string v7, "https://onevpn.bnu.edu.cn/login?cas_login=true"
+
+    invoke-interface {v5, v6, v7}, Lorg/jsoup/Connection;->data(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
+
+    const-string v6, "choosenumber"
+
+    const-string v7, ""
 
     .line 400
     invoke-interface {v5, v6, v7}, Lorg/jsoup/Connection;->data(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
 
     move-result-object v5
+
+    const-string v6, "device"
+
+    const-string v7, "7c2f0b1d2a6e8c4f9a3b0d5e7f1c8b6a"
+
+    invoke-interface {v5, v6, v7}, Lorg/jsoup/Connection;->data(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object v5
+
 
     const-string v6, "ul"
 
@@ -5074,6 +5222,12 @@
     sget-object v1, Lorg/jsoup/Connection$Method;->POST:Lorg/jsoup/Connection$Method;
 
     invoke-interface {v0, v1}, Lorg/jsoup/Connection;->method(Lorg/jsoup/Connection$Method;)Lorg/jsoup/Connection;
+
+    move-result-object v0
+
+    const/4 v1, 0x1
+
+    invoke-interface {v0, v1}, Lorg/jsoup/Connection;->ignoreContentType(Z)Lorg/jsoup/Connection;
 
     move-result-object v0
 

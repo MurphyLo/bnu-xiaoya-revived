@@ -1,1 +1,23 @@
+# Build outputs
 *.apk:Zone.Identifier
+*.apk
+!com.xuhongxu.xiaoyadroid.MyApp.apk
+*.keystore
+*.jks
+jadx_output/
+apktool_output/build/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.cursor/
+.windsurf/
+.claude/
+*.iml
