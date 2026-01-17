@@ -287,9 +287,25 @@
     move-result p1
 
     .line 230
-    new-instance v0, Lcom/xuhongxu/xiaoyadroid/fragments/ClassroomFragment;
+    sget-object v0, Lcom/xuhongxu/xiaoyadroid/fragments/BrowserFragment;->Companion:Lcom/xuhongxu/xiaoyadroid/fragments/BrowserFragment$Companion;
 
-    invoke-direct {v0}, Lcom/xuhongxu/xiaoyadroid/fragments/ClassroomFragment;-><init>()V
+    const-string v1, "file:///android_asset/classroom.html"
+
+    const/4 v3, 0x0
+
+    const/4 v4, 0x0
+
+    const/4 v5, 0x0
+
+    const/16 v6, 0x18
+
+    const/4 v7, 0x0
+
+    const-string v2, "\u7a7a\u95f2\u6559\u5ba4"
+
+    invoke-static/range {v0 .. v7}, Lcom/xuhongxu/xiaoyadroid/fragments/BrowserFragment$Companion;->newInstance$default(Lcom/xuhongxu/xiaoyadroid/fragments/BrowserFragment$Companion;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/Integer;ILjava/lang/Object;)Lcom/xuhongxu/xiaoyadroid/fragments/BrowserFragment;
+
+    move-result-object v0
 
     check-cast v0, Landroidx/fragment/app/Fragment;
 

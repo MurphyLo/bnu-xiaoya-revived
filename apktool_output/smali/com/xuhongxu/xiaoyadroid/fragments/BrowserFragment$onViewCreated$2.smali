@@ -175,7 +175,7 @@
 .end method
 
 .method public shouldInterceptRequest(Landroid/webkit/WebView;Landroid/webkit/WebResourceRequest;)Landroid/webkit/WebResourceResponse;
-    .locals 5
+    .locals 12
 
     const/4 v0, 0x0
 
@@ -197,6 +197,106 @@
     move-result-object v1
 
     .line 137
+    move-object v2, v1
+
+    check-cast v2, Ljava/lang/CharSequence;
+
+    const-string v3, "weixin.bnu.edu.cn/classroom/rooms.php"
+
+    check-cast v3, Ljava/lang/CharSequence;
+
+    const/4 v4, 0x0
+
+    const/4 v5, 0x2
+
+    invoke-static {v2, v3, v4, v5, v0}, Lkotlin/text/StringsKt;->contains$default(Ljava/lang/CharSequence;Ljava/lang/CharSequence;ZILjava/lang/Object;)Z
+
+    move-result v3
+
+    if-nez v3, :cond_proxy
+
+    const-string v3, "weixin.bnu.edu.cn/classroom/room-detail.php"
+
+    check-cast v3, Ljava/lang/CharSequence;
+
+    invoke-static {v2, v3, v4, v5, v0}, Lkotlin/text/StringsKt;->contains$default(Ljava/lang/CharSequence;Ljava/lang/CharSequence;ZILjava/lang/Object;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_google
+
+    :cond_proxy
+    invoke-static {v1}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object v2
+
+    const/4 v3, 0x1
+
+    invoke-interface {v2, v3}, Lorg/jsoup/Connection;->ignoreContentType(Z)Lorg/jsoup/Connection;
+
+    move-result-object v2
+
+    sget-object v3, Lorg/jsoup/Connection$Method;->GET:Lorg/jsoup/Connection$Method;
+
+    invoke-interface {v2, v3}, Lorg/jsoup/Connection;->method(Lorg/jsoup/Connection$Method;)Lorg/jsoup/Connection;
+
+    move-result-object v2
+
+    invoke-interface {v2}, Lorg/jsoup/Connection;->execute()Lorg/jsoup/Connection$Response;
+
+    move-result-object v2
+
+    invoke-interface {v2}, Lorg/jsoup/Connection$Response;->body()Ljava/lang/String;
+
+    move-result-object v2
+
+    sget-object v3, Lkotlin/text/Charsets;->UTF_8:Ljava/nio/charset/Charset;
+
+    invoke-virtual {v2, v3}, Ljava/lang/String;->getBytes(Ljava/nio/charset/Charset;)[B
+
+    move-result-object v3
+
+    new-instance v6, Ljava/io/ByteArrayInputStream;
+
+    invoke-direct {v6, v3}, Ljava/io/ByteArrayInputStream;-><init>([B)V
+
+    check-cast v6, Ljava/io/InputStream;
+
+    new-instance v7, Landroid/webkit/WebResourceResponse;
+
+    const-string v8, "application/json"
+
+    const-string v9, "utf-8"
+
+    invoke-direct {v7, v8, v9, v6}, Landroid/webkit/WebResourceResponse;-><init>(Ljava/lang/String;Ljava/lang/String;Ljava/io/InputStream;)V
+
+    new-instance v8, Ljava/util/HashMap;
+
+    invoke-direct {v8}, Ljava/util/HashMap;-><init>()V
+
+    const-string v9, "Access-Control-Allow-Origin"
+
+    const-string v10, "*"
+
+    invoke-interface {v8, v9, v10}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    const-string v9, "Access-Control-Allow-Methods"
+
+    const-string v10, "GET, POST, OPTIONS"
+
+    invoke-interface {v8, v9, v10}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    const-string v9, "Access-Control-Allow-Headers"
+
+    const-string v10, "*"
+
+    invoke-interface {v8, v9, v10}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    invoke-virtual {v7, v8}, Landroid/webkit/WebResourceResponse;->setResponseHeaders(Ljava/util/Map;)V
+
+    return-object v7
+
+    :cond_google
     check-cast v1, Ljava/lang/CharSequence;
 
     const-string v2, "google"
@@ -211,7 +311,7 @@
 
     move-result v2
 
-    if-nez v2, :cond_2
+    if-nez v2, :cond_block
 
     const-string v2, "analytics"
 
@@ -222,12 +322,12 @@
 
     move-result v0
 
-    if-eqz v0, :cond_1
+    if-eqz v0, :cond_super
 
-    goto :goto_1
+    goto :goto_block
 
     .line 142
-    :cond_1
+    :cond_super
     invoke-super {p0, p1, p2}, Landroid/webkit/WebViewClient;->shouldInterceptRequest(Landroid/webkit/WebView;Landroid/webkit/WebResourceRequest;)Landroid/webkit/WebResourceResponse;
 
     move-result-object p1
@@ -235,8 +335,8 @@
     return-object p1
 
     .line 139
-    :cond_2
-    :goto_1
+    :cond_block
+    :goto_block
     new-instance p1, Landroid/webkit/WebResourceResponse;
 
     .line 140

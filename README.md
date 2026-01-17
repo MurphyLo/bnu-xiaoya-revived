@@ -91,6 +91,15 @@ apksigner verify -v bnu-xiaoya-revived.apk
 
 - `apktool_output/res/values/strings.xml`: 更新 `library_book_url` 与 `library_borrow_url`
 
+### 2026.1.17 空闲教室改为本地 WebView
+
+使用企业微信 `教学与人才培养/空闲自习室查询` 页面替换 `空闲教室` 功能入口
+
+- `classroom.html`: 引入本地 HTML
+- `FunctionFragment$initUI$1$1.smali`: 入口改为 BrowserFragment
+- `BrowserFragment.smali`: 放开本地文件跨域访问
+- `BrowserFragment$onViewCreated$2.smali`: 代理转发接口请求
+
 ## 致谢
 
 原作者: [@xuhongxu](https://github.com/xuhongxu96)

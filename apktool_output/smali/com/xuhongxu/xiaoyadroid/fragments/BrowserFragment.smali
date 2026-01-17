@@ -1058,6 +1058,10 @@
 
     invoke-virtual {p2, v2}, Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V
 
+    invoke-virtual {p2, v2}, Landroid/webkit/WebSettings;->setAllowFileAccessFromFileURLs(Z)V
+
+    invoke-virtual {p2, v2}, Landroid/webkit/WebSettings;->setAllowUniversalAccessFromFileURLs(Z)V
+
     .line 130
     invoke-direct {p0}, Lcom/xuhongxu/xiaoyadroid/fragments/BrowserFragment;->getBinding()Lcom/xuhongxu/xiaoyadroid/databinding/FragmentBrowserBinding;
 

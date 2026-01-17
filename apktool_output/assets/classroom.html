@@ -1,0 +1,1122 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=divice-width,initial-scale=1.0,user-scalable=0">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="robots" content="index,follow,nocache">
+  <meta name="format-detection" content="telphone=no, email=no"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>空闲自习室查询</title>
+  <!-- <link rel="stylesheet" type="text/css" href="https://weixin.bnu.edu.cn/classroom/statics/css/style.css?20240422"> -->
+  <style>
+    /*
+    * 摘录
+    */
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+      font-size: 62.5%;
+      font-family: sans-serif;
+    }
+
+    body {
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-size: 14px;
+      line-height: 1.42857;
+      color: #333;
+      background-color: #FFF;
+      margin: 0px;
+    }
+
+    @font-face {font-family: 'iconfont';
+      src: url('https://weixin.bnu.edu.cn/classroom/statics/css/iconfont.eot'); /* IE9*/
+      src: url('https://weixin.bnu.edu.cn/classroom/statics/css/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+      url('https://weixin.bnu.edu.cn/classroom/statics/css/iconfont.woff') format('woff'), /* chrome、firefox */
+      url('https://weixin.bnu.edu.cn/classroom/statics/css/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+      url('https://weixin.bnu.edu.cn/classroom/statics/css/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+    }
+
+    .iconfont{
+      font-family:"iconfont" !important;
+      font-size:16px;font-style:normal;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-stroke-width: 0.2px;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a{
+            text-decoration: none;
+    }
+
+    h5, .h5 {
+      font-size: 14px;
+    }
+    h4, h5, h6 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-weight: 500;
+      line-height: 1.1;
+      color: inherit;
+    }
+
+    .container {
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .container:before,
+    .container:after {
+      display: table;
+      content: " ";
+    }
+
+    .container:after {
+      clear: both;
+    }
+
+    .container:before,
+    .container:after {
+      display: table;
+      content: " ";
+    }
+
+    .container:after {
+      clear: both;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        width: 750px;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .container {
+        width: 970px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .container {
+        width: 1170px;
+      }
+    }
+
+    img {
+        vertical-align: middle;
+        border: 0px none;
+    }
+
+    .row {
+      margin-right: -15px;
+      margin-left: -15px;
+    }
+
+    .time:before,
+    .time:after,
+    .row:before,
+    .row:after {
+      display: table;
+      content: " ";
+    }
+
+    .time:after,
+    .row:after {
+      clear: both;
+    }
+
+    .time{
+            font-size: 12px;
+            color: #555;
+    }
+
+    .floor,
+    .room,
+    .col,
+    .col-no,
+    .col-last,
+    .col-xs-3,
+    .col-xs-4 {
+            position: relative;
+      min-height: 1px;
+      float: left;
+      /*overflow: hidden;*/
+    }
+
+    .col-no {
+      width: 5%
+    }
+
+    .col-xs-3 {
+      width: 25%;
+    }
+
+    .col-xs-4 {
+      width: 33.3333%;
+    }
+
+    .col-xs-4,
+    .col-xs-3 {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+
+    .floor,.room{
+            width: 20%;
+            color: #555;
+            display: table-cell;
+      vertical-align: top;
+    }
+
+    .col {
+      width: 11%;
+    }
+
+    .col-last{
+      width: 4%;
+    }
+
+    .room{
+      height: 44px;
+      margin-top: -10px;
+      margin-bottom: -10px;
+      line-height: 44px;
+    }
+
+    .time .col{
+            height: 34px;
+            line-height: 34px;
+    }
+
+    .selected {
+      height: 32px;
+      line-height: 32px;
+    }
+
+    .selected label{
+      width: 34px;
+      height: 20px;
+      line-height: 20px;
+      margin-top: 7px;
+      background-color: #7CC576;
+      color: #fff;
+      border-radius: 10px;
+    }
+
+    label {
+      display: inline-block;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 6px 12px;
+      margin-bottom: 0;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 1.428571429;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-image: none;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      -webkit-user-select: none;
+        -moz-user-select: none;
+          -ms-user-select: none;
+          -o-user-select: none;
+              user-select: none;
+
+
+      color: #a1a1a1;;
+      background-color: #ffffff;
+      border-color: #cccccc;
+    }
+
+    /*.btn:focus {
+      outline: thin dotted;
+      outline: 5px auto -webkit-focus-ring-color;
+      outline-offset: -2px;
+    }
+
+    .btn:hover,
+    .btn:focus {
+      color: #ffffff;
+      background-color: #7cc576;
+      border-color: #7cc576;
+      text-decoration: none;
+    }
+
+    .btn:active,
+    .btn.active {
+      background-image: none;
+      outline: 0;
+      -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+              box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    }*/
+
+    .modal-open {
+      overflow: hidden;
+    }
+
+    .modal,
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1040;
+      display: none;
+      overflow: auto;
+      overflow-y: scroll;
+    }
+
+    .hide {
+      display: none;
+      opacity: 0;
+    }
+
+    .show {
+      display: block;
+      opacity: 1;
+    }
+
+    .transparent {
+      opacity: 0;
+    }
+
+
+    .fade {
+      opacity: 0;
+      transition: opacity 0.15s linear 0s;
+    }
+
+    .fade.in {
+      display: block;
+            background-color: #000;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+    }
+
+    #myModal img{
+      width: 32px;
+      height: 32px;
+    }
+
+    /*
+    * choose page
+    */
+    #choose.container {
+      padding:0 15px;
+      text-align: center;
+    }
+
+    .notice {
+            padding: 15px 0;
+            text-align: center;
+            font-size: 1em;
+            color: #cccccc;
+    }
+
+    #date .btn {
+      width: 95%;
+    }
+
+    #date .col-xs-4 {
+            padding-right: 5px;
+            padding-left: 5px;
+    }
+
+    #date .col-xs-4:first-child{
+            padding-left: 10px;
+            padding-right: 0;
+    }
+    #date .col-xs-4:last-child {
+            padding-right: 10px;
+            padding-left: 0;
+    }
+
+    .campus {
+      margin-top: 20px;
+    }
+
+    .campus .col-xs-3 {
+      padding: 6px 0px;
+    }
+
+    .campus .btn{
+      color: #555;
+      width: 80%;
+      padding: 6px 8px;
+    }
+
+    .btn-primary,
+    .campus .btn-primary {
+      color: #ffffff;
+      background-color: #7cc576;
+      border-color: #7cc576;
+    }
+
+    .site {
+      color: #555;
+      text-align: left;
+      font-size: 16px;
+    }
+
+    .support {
+      margin: 10px 0;
+    }
+
+    .support a,
+    .support a:hover,
+    .support a:active,
+    .support a:focus,
+    .support a:visited{
+      color: #333;
+    }
+
+    .support span {
+      color: #aaa;
+    }
+
+    .download {
+            margin-top: 20px;
+      margin-bottom: 20px;
+      border: 1px solid #D0D0D0;
+      border-radius: 4px;
+      padding: 6px;
+    }
+
+    .download a{
+            display: block;
+            height: 48px;
+    }
+
+    .ad-logo,
+    .ad-content{
+            display: table-cell;
+            vertical-align: middle;
+    }
+
+    .ad-logo {
+      float: left;
+      width: 48px;
+      height: 48px;
+    }
+
+    .ad-logo img{
+      width: 48px;
+      height: 48px;
+    }
+
+    .ad-content {
+            text-align: left;
+            float: left;
+            margin-top: 4px;
+            margin-left: 8px;
+            color:#A0A0A0;
+            font-size: 12px;
+    }
+
+    .app-name {
+            font-size: 16px;
+            color:#646464;
+    }
+
+    .ad-down {
+      width: 48px;
+      height: 48px;
+      float: right;
+      margin-top: 7px;
+      margin-right: 6px;
+    }
+
+    .ad-down .btn{
+            color: #fff;
+            border: none;
+            background-color:#2292D4;
+    }
+
+
+    /*
+    * result page
+    */
+    #result {
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            right: 0px;
+            left: 0px;
+            z-index: 10;
+            background-color: #fff;
+    }
+
+    #result .container,
+    #detail .container {
+            text-align: center;
+            padding-left: 8px;
+            padding-right: 8px;
+            overflow: hidden;
+    }
+
+    .room-table div.row:nth-child(odd),
+    .room-detail div.row:nth-child(odd) {
+            background-color: #fbfbfb;
+    }
+
+    .room-table{
+            padding-bottom: 50px;
+    }
+
+    .room-table,
+    .room-detail {
+      margin-top: 47px;
+    }
+
+    header{
+            padding: 6px 0;
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            background-color: #fff;
+            z-index: 9;
+            border-bottom: 1px solid #f5f5f5;
+    }
+
+    .location-on {
+            display: block;
+            font-size: 12px;
+            color: #a1a1a1;
+    }
+
+    .date-on,
+    .room-on {
+            font-size: 10px;
+            color: #a1a1a1;
+    }
+
+
+    div[class*="record"] {
+            padding-top: 10px;
+            padding-bottom: 10px;
+    }
+
+    div[class*="record-detail"] {
+            padding-top: 10px;
+            padding-bottom: 10px;
+    }
+
+    div[class*="future"]{
+            cursor: pointer;
+            padding-left: 10px;
+            padding-right: 5px;
+    }
+
+    .status {
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            color: #676767;
+            border-radius: 4px;
+            font-weight:normal;
+            font-size: 12px;
+      background-color: #f5f5f5;
+            margin-bottom: 0;
+    }
+
+    .empty {
+            color: #fff;
+            background-color: #7CC576;
+            border-color: #7CC576;
+    }
+
+    #result .empty {
+            cursor: pointer;
+    }
+
+    .occupy {
+            color: #fff;
+    }
+
+    .choose {
+            color: #fff;
+            background-color: #f3a548;
+            border-color: #f3a548;
+    }
+
+    .transparent label{
+      display: none;
+    }
+
+    footer {
+            position: fixed;
+            right: 0px;
+            left: 0px;
+            bottom: 0px;
+            z-index: 20;
+            width: 100%;
+            height: 60px;
+            border-top: 1px solid #D3D3D3;
+            background-color: #fff;
+            display: table;
+            padding: 0px;
+    }
+
+    .footer-left,
+    .footer-right {
+            display: table-cell;
+            height: 50px;
+            width: 50%;
+            text-align: center;
+            vertical-align: middle;
+    }
+
+    .close-result,
+    .close-detail,
+    #exit-select {
+            cursor: pointer;
+            font-size: 32px;
+            color: #ababab;
+    }
+
+    .to-top {
+            padding: 6px 5px;
+            height: 32px;
+            cursor: pointer;
+    }
+
+    .zztj {
+      height: 0px;
+      width: 0px;
+      overflow: hidden;
+    }
+
+    .zztj a{
+      color: #fff;
+      font-size: 0;
+    }
+  </style>
+<body>
+<div style="position: absolute;opacity: 0;filter: alpha(opacity=0);">
+<img src="https://weixin.bnu.edu.cn/static/bnu.jpg" width=10>
+</div>
+  <div id="choose" class="container">
+      <h2>空闲自习室查询</h2>
+    <div class="notice">
+
+      <span>*教室占用情况可能存在临时变动</span>
+    </div>
+
+    <div id="date" class="row">
+      <div class="col-xs-4">
+        <label data-value="today" class="btn btn-primary">今天</label>
+      </div>
+      <div class="col-xs-4">
+        <label data-value="tomorrow" class="btn">明天</label>
+      </div>
+      <div class="col-xs-4">
+        <label data-value="2daysl" class="btn">后天</label>
+      </div>
+    </div>
+
+    <div class="campus">
+      <h5 class="site"><br>楼宇：</h5>
+      <div class="row">
+<div class='col-xs-3'>
+          <label data-campus=1 class=btn>化学楼</label>
+        </div><div class='col-xs-3'>
+          <label data-campus=1 class=btn>教七楼</label>
+        </div><div class='col-xs-3'>
+          <label data-campus=1 class=btn>教三楼</label>
+        </div><div class='col-xs-3'>
+          <label data-campus=1 class=btn>教九楼</label>
+        </div><div class='col-xs-3'>
+          <label data-campus=1 class=btn>教二楼</label>
+        </div><div class='col-xs-3'>
+          <label data-campus=1 class=btn>教八楼</label>
+        </div><div class='col-xs-3'>
+          <label data-campus=1 class=btn>教十楼</label>
+        </div><div class='col-xs-3'>
+          <label data-campus=1 class=btn>教四楼</label>
+        </div><div class='col-xs-3'>
+          <label data-campus=1 class=btn>生地楼</label>
+        </div><div class='col-xs-3'>
+          <label data-campus=1 class=btn>电子楼</label>
+        </div><div class='col-xs-3'>
+          <label data-campus=1 class=btn>育荣主</label>
+        </div><div class='col-xs-3'>
+          <label data-campus=1 class=btn>艺术楼</label>
+        </div>
+     </div>
+         <div class="notice">
+
+      <span style="text-align:left">附：作息时间表
+      <br>上午 1-2节 08:00~09:40 3-4节 10:00~11:40
+      <br>下午 5-6节 13:30~15:10 7-8节 15:30~17:10
+      <br>晚上 9-10节 18:00~19:40 11-12节 19:50~21:30
+      </span>
+    </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="modal hide" id="myModal">
+
+  </div>
+
+  <div id="result" class="hide">
+    <header>
+      <div class="container">
+        <section class="row">
+          <div class="floor">
+            <span class="location-on"></span>
+            <span class="date-on"></span>
+          </div>
+
+          <div class="time">
+            <div id="section0" class="col">
+              <label>1-2节</label>
+            </div>
+
+            <div id="section1" class="col">
+              <label>3-4节</label>
+            </div>
+
+            <div class="col-no">
+            </div>
+
+            <div id="section2" class="col">
+              <label>5-6节</label>
+            </div>
+
+            <div id="section3" class="col">
+              <label>7-8节</label>
+            </div>
+
+            <div class="col-no">
+
+            </div>
+
+            <div id="section4" class="col">
+              <label>9-10节</label>
+            </div>
+
+            <div id="section5" class="col">
+              <label>11-12</label>
+            </div>
+
+            <div class="col-last">
+
+            </div>
+          </div>
+        </section>
+      </div>
+    </header>
+
+    <section class="container room-table">
+
+    </section>
+
+    <footer>
+      <div class="footer-left">
+         <i class="close-result icon iconfont"> &#xe600; </i>
+      </div>
+      <div class="footer-right">
+        <i id="exit-select" class="icon iconfont hide">&#xe601;</i>点击教室名查看最近7天
+      </div>
+    </footer>
+  </div>
+
+  <div id="detail" class="hide">
+    <header>
+      <div class="container">
+        <section class="row">
+          <div class="floor">
+            <span class="location-on"></span>
+            <span class="room-on"></span>
+          </div>
+
+          <div class="time">
+            <div class="col">
+              <label>1-2节</label>
+            </div>
+
+            <div class="col">
+              <label>3-4节</label>
+            </div>
+
+            <div class="col-no">
+
+            </div>
+
+            <div class="col">
+              <label>5-6节</label>
+            </div>
+
+            <div class="col">
+              <label>7-8节</label>
+            </div>
+
+            <div class="col-no">
+
+            </div>
+
+            <div class="col">
+              <label>9-10节</label>
+            </div>
+
+            <div class="col">
+              <label>11-12</label>
+            </div>
+
+            <div class="col-last">
+
+            </div>
+          </div>
+        </section>
+      </div>
+    </header>
+
+    <section class="container room-detail">
+
+    </section>
+
+    <footer>
+      <div class="footer-left">
+        <i class="close-detail icon iconfont">&#xe600;</i>
+      </div>
+      <div class="footer-right">
+		注：点击箭头返回
+      </div>
+    </footer>
+
+
+</body>
+  <script src="https://weixin.bnu.edu.cn/classroom/statics/js/jquery-1.11.0.min.js"></script>
+  <script src="https://weixin.bnu.edu.cn/classroom/statics/js/spin.min.js"></script>
+  <script src="https://weixin.bnu.edu.cn/classroom/statics/js/jquery.spin.js"></script>
+  <!-- <script src="https://weixin.bnu.edu.cn/classroom/statics/js/classroom.js"></script> -->
+  <script>
+    $(document).ready(function(){
+    dom={};
+    dom.queryDate = $("#date .btn");
+    dom.queryFloor = $(".campus .btn");
+    dom.mybody = $(document.body);
+    dom.myModal =  $("#myModal");
+    dom.choosePage = $("#choose");
+    dom.resultPage = $('#result');
+    dom.detailPage = $('#detail');
+    dom.col = $("div[class^='section']");
+    dom.section = $("div[id^='section']");
+    dom.roomTable = $(".room-table");
+    dom.roomDetail = $(".room-detail");
+    dom.exitSelectTime = $("#exit-select");
+    dom.ajaxProcess;
+
+    first = 1;          //  声明一个全局变量，记录是否进入时间选择模式
+    var scrollHeight;   // 记录第二个页面的滚动高度
+
+    dom.queryDate.click(chooseDate);              // 绑定日期按钮
+    dom.queryFloor.click(chooseBuilding);         // 绑定楼宇按钮
+
+    $(".close-result").click(closeResultPage);
+    $(".close-detail").click(closeDetailPage);
+    dom.section.click(showOneColumn);             // 例：只显示 1-2 节的使用情况
+    dom.exitSelectTime.click(exitSelect);
+
+    $("#detail .time .col").click(test);
+    function test(){
+      console.log("message");
+      return false;
+    }
+  });
+
+
+  function loadingIn(){
+    dom.mybody.addClass("modal-open");
+    dom.myModal.addClass("show");
+    $("#myModal").spin();
+  }
+
+
+  function loadingFade(){
+    dom.mybody.removeClass("modal-open");
+    dom.myModal.removeClass("show");
+    $("#myModal").spin(false);
+  }
+
+
+  function cancelAjax(){
+    dom.ajaxProcess.abort();
+    loadingFade();
+  }
+
+
+  function chooseDate(){
+    dom.queryDate.removeClass("btn-primary");
+    $(this).addClass("btn-primary");
+  }
+
+
+  function chooseBuilding(){
+    dom.queryFloor.removeClass("btn-primary");
+    var clickedElem = $(this);
+    clickedElem.addClass("btn-primary");
+
+    loadingIn();
+
+    var campus = clickedElem.data('campus');
+    var date = $("#date .btn-primary").data('value');
+    var floor = clickedElem.text();
+    var params={};
+    params.ca = campus;
+    params.time = date;
+    params.b_name = floor;
+
+    dom.ajaxProcess = $.ajax({
+      url: "https://weixin.bnu.edu.cn/classroom/rooms.php",
+      type: "get",
+      dataType: "json",
+      cache: false,
+      timeout: 5000,
+      data: params,
+      success: function(data){
+        if(data.success === 1){
+          if (data.result.length < 1) {
+            loadingFade();
+            alert("暂时没有数据");
+            closeResultPage();
+            return;
+          }
+          openResultPage(data,params);
+        }else{
+          alert('服务器有点儿累了');
+          clickedElem.removeClass("btn-primary");
+          loadingFade();
+        }
+      },
+      complete: function(XMLHttpRequest, status){
+        if(status == 'error'){
+          alert('请检查网络连接');
+          clickedElem.removeClass("btn-primary");
+          cancelAjax();
+        }
+        if(status == 'timeout'){
+          alert('当前网络较慢，请重试');
+          clickedElem.removeClass("btn-primary");
+          cancelAjax();
+        }
+      }
+    });
+  }
+
+
+
+  function openResultPage(data,params){
+    dom.choosePage.addClass("hide");
+
+    loadingFade();
+
+    dom.resultPage.removeClass("hide");
+
+    var queryDate;
+    if(params.time === "today") {
+      queryDate = '今天';
+    } else if (params.time === "tomorrow") {
+      queryDate = '明天';
+    } else {
+      queryDate = '后天';
+    }
+
+    $(".location-on").text(params.b_name);
+    $("span.date-on").text(queryDate);
+
+    var items = data.result;
+    $.each(items, function(i, item){
+      dom.roomTable.append("<div class='row record" + i + "'><div class='room'><div class='future" + i + "'>" + item.room_number + "</div>");
+
+      var elem = "." + "record" + i;
+
+      $.each(item.status, function(k, statu){
+        if ((k === 2)||(k === 4)){
+          $(elem).append("<div class='col-no'></div>");
+        }
+        if (statu === 0) {
+          $(elem).append("<div class='section" + k + " col'><label class='status empty'>空</label></div></div>");
+        } else {
+          $(elem).append("<div class='section" + k + " col'><label class='status occupy'>占</label></div>");
+        };
+      });
+    });
+
+    $("div[class^='future']").click(beforeDetailPage);
+    $("#result label.empty").click(chooseLikeRoom);
+  }
+
+
+  function chooseLikeRoom(){
+    var status = $(this).attr("class").indexOf("choose");
+    var parent = $(this).parent().attr("class").indexOf("transparent");
+
+    if (first === 1) { // 没有进入 时间选择模式
+      if(status === -1){
+        $(this).addClass("choose");
+      } else {
+        $(this).removeClass("choose");
+      }
+    } else {                  // 已经进入 时间选择模式
+      if (parent === -1){     // 不是透明的按钮
+        if(status === -1){    // 不是选中按钮
+          $(this).addClass("choose");
+        } else {              // 是选中按钮
+          $(this).removeClass("choose");
+        }
+      } else {
+        // console.log("// 是透明按钮,什么也不执行");
+      }
+    }
+  }
+
+
+  function showOneColumn(){
+    var clickElem = $(this);
+    var clickId = clickElem.attr("id");
+    var showElem = "div[class^='" + clickId + "']";
+    var flag = clickElem.attr("class").indexOf("selected");
+
+    dom.exitSelectTime.removeClass("hide");
+
+    if(first === 1) {
+      $("div[class^='section']").addClass("transparent");     // 所有都不显示
+      clickElem.addClass("selected");                         // 选中时间
+      $(showElem).removeClass("transparent");                 // 显示 选中的列
+      first = 2;
+    } else {
+      if(flag === -1){      // 没有选中
+        clickElem.addClass("selected");
+        $(showElem).removeClass("transparent");
+      } else {              // 选中
+        clickElem.removeClass("selected");
+        $(showElem).addClass("transparent");
+      }
+    }
+  }
+
+
+  function exitSelect(){
+    first = 1;
+    dom.section.removeClass("selected");
+    dom.exitSelectTime.addClass("hide");                      // 关闭 时间选择模式
+    $("div[class^='section']").removeClass("transparent");    // 所有都显示
+  }
+
+
+  function closeResultPage(){
+    dom.resultPage.addClass("hide");
+    dom.section.removeClass("selected");
+    first = 1;                              // 下次进入 resultPage 时点击是第一次
+    dom.exitSelectTime.addClass("hide");    // 关闭 时间选择模式
+    dom.roomTable.empty();
+    dom.queryFloor.removeClass("btn-primary");
+    dom.choosePage.removeClass("hide");
+  }
+
+
+  function beforeDetailPage(){
+    scrollHeight = document.body.scrollTop;
+
+    loadingIn();
+
+    var elem = $(".campus .btn-primary");
+    var campus = elem.data('campus');
+    var floor = elem.text();
+
+    var room = $(this).text();
+
+    var params={};
+        params.ca = campus;
+        params.b_name = floor;
+        params.room = room;
+
+    dom.ajaxProcess = $.ajax({
+      url: "https://weixin.bnu.edu.cn/classroom/room-detail.php",
+      type: "get",
+      dataType: "json",
+      cache: false,
+      timeout: 5000,
+      data: params,
+      success: function(data){
+        if(data.success === 1){
+          openDetailPage(data,params);
+        }else{
+          alert('服务器有点儿累了');
+          clickedElem.removeClass("btn-primary");
+          loadingFade();
+        }
+      },
+      complete: function(XMLHttpRequest, status){
+        if(status == 'error'){
+          alert('请检查网络连接');
+          cancelAjax();
+        }
+        if(status == 'timeout'){
+          alert('当前网络较慢，请重试');
+          cancelAjax();
+        }
+      }
+    });
+  }
+
+
+  function openDetailPage(data,params){
+    dom.resultPage.addClass("hide");
+
+    loadingFade();
+
+    dom.detailPage.removeClass("hide");
+
+    // 左上角 例“正心楼 603”
+    $("#detail .location-on").text(params.b_name);
+    $(".room-on").text(params.room);
+
+    var items = data.detail;
+    $.each(items, function(i, item){
+      dom.roomDetail.append("<div class='row record-detail" + i + "'><div class='room'><label class='data" + i + "'>" + item.date.slice(5) + "</label>");
+
+      var elem = "." + "record-detail" + i;
+
+      $.each(item.status, function(k, statu){
+        if ((k/2 === 1)||(k/2 === 2)){
+          $(elem).append("<div class='col-no'></div>");
+        }
+        if (statu === 0) {
+          $(elem).append("<div class='col'><label class='status empty'>空</label></div></div>");
+        } else {
+          $(elem).append("<div class='col'><label class='status occupy'>占</label></div>");
+        };
+      });
+    });
+  }
+
+
+  function closeDetailPage(){
+    dom.detailPage.addClass("hide");
+    dom.roomDetail.empty();
+    dom.resultPage.removeClass("hide");
+    document.body.scrollTop = scrollHeight;
+  }
+  </script>
+</html>
