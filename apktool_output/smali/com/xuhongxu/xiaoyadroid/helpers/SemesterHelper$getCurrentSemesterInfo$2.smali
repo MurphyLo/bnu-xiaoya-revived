@@ -139,11 +139,25 @@
 
     invoke-static {p1}, Lkotlin/ResultKt;->throwOnFailure(Ljava/lang/Object;)V
 
+    new-instance p1, Lcom/xuhongxu/xiaoyadroid/helpers/SemesterInfo;
+
+    const-string v0, ""
+
+    invoke-direct {p1, v0, v0}, Lcom/xuhongxu/xiaoyadroid/helpers/SemesterInfo;-><init>(Ljava/lang/String;Ljava/lang/String;)V
+
+    return-object p1
+
     const-string p1, "http://123.206.51.151/BNU-Crow-Config/BNU.json"
 
     .line 21
     :try_start_0
     invoke-static {p1}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object p1
+
+    const/16 v0, 0x7d0
+
+    invoke-interface {p1, v0}, Lorg/jsoup/Connection;->timeout(I)Lorg/jsoup/Connection;
 
     move-result-object p1
 

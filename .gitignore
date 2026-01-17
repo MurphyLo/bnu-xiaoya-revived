@@ -1,5 +1,6 @@
 # Build outputs
-*.apk:Zone.Identifier
+*Zone.Identifier
+*.idsig
 *.apk
 !com.xuhongxu.xiaoyadroid.MyApp.apk
 *.keystore
