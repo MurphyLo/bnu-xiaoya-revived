@@ -12,7 +12,7 @@
 ## 仓库结构
 
 - `com.xuhongxu.xiaoyadroid.MyApp.apk`：原始 APK
-- `apktool_output/`：apktool 解包目录（包含已修改的 smali，用于重新构建 apk）
+- `apktool_output/`：apktool 完整解包目录（包含已修改的 smali/资源，用于重新构建 apk）
 
 ## 常见问题
 
@@ -32,8 +32,11 @@
 ### 构建步骤
 
 ```bash
+# 0. 解包原始 APK
+apktool d -f com.xuhongxu.xiaoyadroid.MyApp.apk -o apktool_output
+
 # 1. 重新打包
-apktool b -r apktool_output -o xiaoya-unsigned.apk
+apktool b apktool_output -o xiaoya-unsigned.apk
 
 # 2. 对齐（关键）
 zipalign -p -f -v 4 xiaoya-unsigned.apk xiaoya-aligned.apk
