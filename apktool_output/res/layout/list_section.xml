@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:background="?colorSectionBackground" android:paddingTop="@dimen/list_section_vertical_padding" android:paddingBottom="@dimen/list_section_vertical_padding" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingStart="@dimen/list_section_horizontal_padding" android:paddingEnd="@dimen/list_section_horizontal_padding"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textColor="?colorSectionTextColor" android:id="@id/sectionTitle" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+</LinearLayout>

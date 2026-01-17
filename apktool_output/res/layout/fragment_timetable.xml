@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.xuhongxu.xiaoyadroid.views.TimetableView android:id="@id/timetable" android:paddingBottom="40.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent" android:paddingStart="20.0dip" android:paddingEnd="20.0dip" app:numberBackgroundColor="?colorTimeTableNumberBackground" app:numberTextColor="?colorTimeTableNumberText" app:weekDayBackgroundColor="?colorTimeTableWeekDayBackground" app:weekDayTextColor="?colorTimeTableWeekDayText" />
+    <ProgressBar android:layout_gravity="center" android:id="@id/timetable_progressBar" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton android:layout_gravity="end|bottom|center" android:id="@id/fab" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="16.0dip" android:src="@drawable/ic_more_horiz_black_24dp" android:tint="?colorFABIcon" app:layout_anchor="@id/timetable" app:layout_anchorGravity="end|bottom|center" app:layout_behavior="com.xuhongxu.xiaoyadroid.helpers.ScrollAwareFABBehavior" app:rippleColor="?colorFABRipple" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
