@@ -146,7 +146,7 @@
     <string name="phone_book_url">https://bnu-crow.com/static/phone-book</string>
     <string name="play_history">播放历史</string>
     <string name="request_calendar_permission">请授权写入日历后再次同步。</string>
-    <string name="school_calendar_url">http://123.206.51.151/BNU-Crow/school-calendar.jpg</string>
+    <string name="school_calendar_url">https://www.bnu.edu.cn/xysh/syxx/xl/29736b4df42e4b5b971a5fc68a8d9ed7.htm</string>
     <string name="school_map_url">http://www.bnu.edu.cn/map/images/map.jpg</string>
     <string name="score1">平时分:</string>
     <string name="score2">期末分:</string>
@@ -157,7 +157,7 @@
     <string name="select_semester">同步</string>
     <string name="select_skin">主题心情</string>
     <string name="skip">下次再说</string>
-    <string name="sports_url">http://cas.bnu.edu.cn/cas/login?service=http://jsty.bnu.edu.cn/</string>
+    <string name="sports_url">http://cas.bnu.edu.cn/cas/login?service=https%3A%2F%2Fjsty.bnu.edu.cn%2Fwww%2Fsport%2Fshare%2Fcas%3FredirectUrl%3D%252Fcontent%252Fvab%252F%2523%252F65628701</string>
     <string name="start_export">同步中～请到桌面添加【日程】小工具</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="title_function">功能</string>

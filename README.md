@@ -100,6 +100,12 @@ apksigner verify -v bnu-xiaoya-revived.apk
 - `BrowserFragment.smali`: 放开本地文件跨域访问
 - `BrowserFragment$onViewCreated$2.smali`: 代理转发接口请求
 
+### 2026.1.17 更新校历与锻炼打卡入口
+
+替换 `校历` 与 `锻炼打卡` 入口通过 CAS 进行认证和跳转
+
+- `apktool_output/res/values/strings.xml`: 更新 `school_calendar_url` 与 `sports_url`
+
 ## 致谢
 
 原作者: [@xuhongxu](https://github.com/xuhongxu96)
