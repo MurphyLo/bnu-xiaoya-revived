@@ -753,7 +753,7 @@
 .end method
 
 .method public onViewCreated(Landroid/view/View;Landroid/os/Bundle;)V
-    .locals 7
+    .locals 8
 
     const-string p2, "view"
 
@@ -1101,6 +1101,21 @@
 
     move-result-object p1
 
+    iget-boolean v7, p0, Lcom/xuhongxu/xiaoyadroid/fragments/BrowserFragment;->checkLogin:Z
+
+    if-eqz v7, :cond_url_ready
+
+    iget-object v7, p0, Lcom/xuhongxu/xiaoyadroid/fragments/BrowserFragment;->url:Ljava/lang/String;
+
+    if-eqz v7, :cond_url_ready
+
+    invoke-virtual {p1, v7}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->adaptUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v7
+
+    iput-object v7, p0, Lcom/xuhongxu/xiaoyadroid/fragments/BrowserFragment;->url:Ljava/lang/String;
+
+    :cond_url_ready
     invoke-virtual {p1}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->getCookies()Ljava/util/Map;
 
     move-result-object p1
@@ -1190,6 +1205,14 @@
     move-result-object v3
 
     const-string v5, "cas.bnu.edu.cn"
+
+    invoke-virtual {v1, v5, v3}, Landroid/webkit/CookieManager;->setCookie(Ljava/lang/String;Ljava/lang/String;)V
+
+    const-string v5, "onevpn.bnu.edu.cn"
+
+    invoke-virtual {v1, v5, v3}, Landroid/webkit/CookieManager;->setCookie(Ljava/lang/String;Ljava/lang/String;)V
+
+    const-string v5, "https://onevpn.bnu.edu.cn"
 
     invoke-virtual {v1, v5, v3}, Landroid/webkit/CookieManager;->setCookie(Ljava/lang/String;Ljava/lang/String;)V
 

@@ -146,6 +146,8 @@
 
 .field private listener:Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant$AssistantListener;
 
+.field private externalNetworkCache:Ljava/lang/Boolean;
+
 .field private volatile loginState:Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant$LoginState;
 
 .field private password:Ljava/lang/String;
@@ -318,6 +320,10 @@
 
     const-string v1, "http://zyfw.bnu.edu.cn/jw/common/getStuGradeSpeciatyInfo.action"
 
+    invoke-direct {p0, v1}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
     .line 199
     invoke-static {v1}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
 
@@ -335,6 +341,10 @@
     const-string v2, "Referer"
 
     const-string v3, "http://zyfw.bnu.edu.cn"
+
+    invoke-direct {p0, v3}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v3
 
     .line 201
     invoke-interface {v1, v2, v3}, Lorg/jsoup/Connection;->header(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
@@ -554,6 +564,10 @@
     .locals 6
 
     const-string v0, "https://cas.bnu.edu.cn/cas/oauth2.0/authorize?client_id=nup&response_type=code&redirect_uri=https://one.bnu.edu.cn/tp_nup/cas.html?service=https://one.bnu.edu.cn/tp_nup/&scope=all"
+
+    invoke-direct {p0, v0}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
 
     .line 132
     invoke-static {v0}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
@@ -925,6 +939,402 @@
     return v0
 .end method
 
+.method private final buildUrl(Ljava/lang/String;)Ljava/lang/String;
+    .locals 4
+
+    const-string v0, "url"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    invoke-direct {p0}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->isExternalNetwork()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_a
+
+    const-string v0, "https://cas.bnu.edu.cn/"
+
+    invoke-virtual {p1, v0}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    const/16 v1, 0x17
+
+    invoke-virtual {p1, v1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object p1
+
+    const-string v1, "(this as java.lang.String).substring(startIndex)"
+
+    invoke-static {p1, v1}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "https://onevpn.bnu.edu.cn/https/77726476706e69737468656265737421f3f652d2253e7d1e7b0c9ce29b5b/"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    goto/16 :goto_0
+
+    :cond_0
+    const-string v0, "http://cas.bnu.edu.cn/"
+
+    invoke-virtual {p1, v0}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1
+
+    const/16 v1, 0x16
+
+    invoke-virtual {p1, v1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object p1
+
+    const-string v1, "(this as java.lang.String).substring(startIndex)"
+
+    invoke-static {p1, v1}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "https://onevpn.bnu.edu.cn/http/77726476706e69737468656265737421f3f652d2253e7d1e7b0c9ce29b5b/"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    goto/16 :goto_0
+
+    :cond_1
+    const-string v0, "http://zyfw.bnu.edu.cn/"
+
+    invoke-virtual {p1, v0}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_2
+
+    const/16 v1, 0x17
+
+    invoke-virtual {p1, v1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object p1
+
+    const-string v1, "(this as java.lang.String).substring(startIndex)"
+
+    invoke-static {p1, v1}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "https://onevpn.bnu.edu.cn/http/77726476706e69737468656265737421eaee478b69326645300d8db9d6562d/"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    goto/16 :goto_0
+
+    :cond_2
+    const-string v0, "https://jsty.bnu.edu.cn/"
+
+    invoke-virtual {p1, v0}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_3
+
+    const/16 v1, 0x18
+
+    invoke-virtual {p1, v1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object p1
+
+    const-string v1, "(this as java.lang.String).substring(startIndex)"
+
+    invoke-static {p1, v1}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "https://onevpn.bnu.edu.cn/https/77726476706e69737468656265737421fae4558569326645300d8db9d6562d/"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    goto/16 :goto_0
+
+    :cond_3
+    const-string v0, "https://libdiscover.bnu.edu.cn/"
+
+    invoke-virtual {p1, v0}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_4
+
+    const/16 v1, 0x1f
+
+    invoke-virtual {p1, v1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object p1
+
+    const-string v1, "(this as java.lang.String).substring(startIndex)"
+
+    invoke-static {p1, v1}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "https://onevpn.bnu.edu.cn/https/77726476706e69737468656265737421fcfe43982e236b5f680d9be29a5b367b2eaa73c1a324/"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    goto :goto_0
+
+    :cond_4
+    const-string v0, "http://zyfw.bnu.edu.cn"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_5
+
+    const-string p1, "https://onevpn.bnu.edu.cn/http/77726476706e69737468656265737421eaee478b69326645300d8db9d6562d/"
+
+    goto :goto_0
+
+    :cond_5
+    const-string v0, "https://cas.bnu.edu.cn"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_6
+
+    const-string p1, "https://onevpn.bnu.edu.cn/https/77726476706e69737468656265737421f3f652d2253e7d1e7b0c9ce29b5b/"
+
+    goto :goto_0
+
+    :cond_6
+    const-string v0, "http://cas.bnu.edu.cn"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_7
+
+    const-string p1, "https://onevpn.bnu.edu.cn/http/77726476706e69737468656265737421f3f652d2253e7d1e7b0c9ce29b5b/"
+
+    goto :goto_0
+
+    :cond_7
+    const-string v0, "https://jsty.bnu.edu.cn"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_8
+
+    const-string p1, "https://onevpn.bnu.edu.cn/https/77726476706e69737468656265737421fae4558569326645300d8db9d6562d/"
+
+    goto :goto_0
+
+    :cond_8
+    const-string v0, "https://libdiscover.bnu.edu.cn"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_9
+
+    const-string p1, "https://onevpn.bnu.edu.cn/https/77726476706e69737468656265737421fcfe43982e236b5f680d9be29a5b367b2eaa73c1a324/"
+
+    :cond_9
+    :goto_0
+    return-object p1
+
+    :cond_a
+    return-object p1
+.end method
+
+.method public final adaptUrl(Ljava/lang/String;)Ljava/lang/String;
+    .locals 2
+
+    const-string v0, "url"
+
+    invoke-static {p1, v0}, Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V
+
+    :try_start_0
+    invoke-direct {p0, p1}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object p1
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    return-object p1
+
+    :catch_0
+    move-exception v1
+
+    return-object p1
+.end method
+
+.method private final isExternalNetwork()Z
+    .locals 8
+
+    const/4 v0, 0x0
+
+    iget-object v1, p0, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->externalNetworkCache:Ljava/lang/Boolean;
+
+    if-eqz v1, :cond_0
+
+    invoke-virtual {v1}, Ljava/lang/Boolean;->booleanValue()Z
+
+    move-result v0
+
+    return v0
+
+    :cond_0
+    :try_start_0
+    const-string v1, "https://one.bnu.edu.cn"
+
+    invoke-static {v1}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object v1
+
+    const-string v2, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"
+
+    invoke-interface {v1, v2}, Lorg/jsoup/Connection;->userAgent(Ljava/lang/String;)Lorg/jsoup/Connection;
+
+    move-result-object v1
+
+    const/16 v2, 0x1388
+
+    invoke-interface {v1, v2}, Lorg/jsoup/Connection;->timeout(I)Lorg/jsoup/Connection;
+
+    move-result-object v1
+
+    sget-object v2, Lorg/jsoup/Connection$Method;->GET:Lorg/jsoup/Connection$Method;
+
+    invoke-interface {v1, v2}, Lorg/jsoup/Connection;->method(Lorg/jsoup/Connection$Method;)Lorg/jsoup/Connection;
+
+    move-result-object v1
+
+    invoke-interface {v1, v0}, Lorg/jsoup/Connection;->followRedirects(Z)Lorg/jsoup/Connection;
+
+    move-result-object v1
+
+    const/4 v2, 0x1
+
+    invoke-interface {v1, v2}, Lorg/jsoup/Connection;->ignoreHttpErrors(Z)Lorg/jsoup/Connection;
+
+    move-result-object v1
+
+    invoke-interface {v1}, Lorg/jsoup/Connection;->execute()Lorg/jsoup/Connection$Response;
+
+    move-result-object v1
+
+    invoke-interface {v1}, Lorg/jsoup/Connection$Response;->statusCode()I
+
+    move-result v2
+
+    const/16 v3, 0x12e
+
+    if-ne v2, v3, :cond_1
+
+    const-string v2, "Location"
+
+    invoke-interface {v1, v2}, Lorg/jsoup/Connection$Base;->header(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_1
+
+    move-object v2, v1
+
+    check-cast v2, Ljava/lang/CharSequence;
+
+    const-string v1, "onevpn.bnu.edu.cn/login"
+
+    move-object v3, v1
+
+    check-cast v3, Ljava/lang/CharSequence;
+
+    const/4 v4, 0x0
+
+    const/4 v5, 0x2
+
+    const/4 v6, 0x0
+
+    invoke-static {v2, v3, v4, v5, v6}, Lkotlin/text/StringsKt;->contains$default(Ljava/lang/CharSequence;Ljava/lang/CharSequence;ZILjava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1
+
+    const/4 v0, 0x1
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    :cond_1
+    invoke-static {v0}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object v1
+
+    iput-object v1, p0, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->externalNetworkCache:Ljava/lang/Boolean;
+
+    return v0
+
+    :catch_0
+    invoke-static {v0}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object v1
+
+    iput-object v1, p0, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->externalNetworkCache:Ljava/lang/Boolean;
+
+    return v0
+.end method
+
 
 # virtual methods
 .method public final fetchStudentDetails(Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -977,6 +1387,10 @@
     :cond_0
     const-string v1, "http://zyfw.bnu.edu.cn/STU_BaseInfoAction.do?hidOption=InitData&menucode_current=JW13020101"
 
+    invoke-direct {v0, v1}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
     .line 312
     invoke-static {v1}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
 
@@ -994,6 +1408,10 @@
     const-string v2, "Referer"
 
     const-string v3, "http://zyfw.bnu.edu.cn"
+
+    invoke-direct {v0, v3}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v3
 
     .line 314
     invoke-interface {v1, v2, v3}, Lorg/jsoup/Connection;->header(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
@@ -1833,6 +2251,10 @@
     :cond_0
     const-string v0, "http://zyfw.bnu.edu.cn/STU_DynamicInitDataAction.do?classPath=com.kingosoft.service.jw.student.pyfa.CourseInfoService&xn=2015&xq_m=1"
 
+    invoke-direct {p0, v0}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
     .line 241
     invoke-static {v0}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
 
@@ -1850,6 +2272,10 @@
     const-string v1, "Referer"
 
     const-string v2, "http://zyfw.bnu.edu.cn"
+
+    invoke-direct {p0, v2}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
 
     .line 243
     invoke-interface {v0, v1, v2}, Lorg/jsoup/Connection;->header(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
@@ -2139,6 +2565,10 @@
 
     const-string v0, "http://zyfw.bnu.edu.cn/taglib/DataTable.jsp?tableId=2538"
 
+    invoke-direct {p0, v0}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
     .line 764
     invoke-static {v0}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
 
@@ -2156,6 +2586,10 @@
     const-string v1, "Referer"
 
     const-string v2, "http://zyfw.bnu.edu.cn"
+
+    invoke-direct {p0, v2}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
 
     .line 766
     invoke-interface {v0, v1, v2}, Lorg/jsoup/Connection;->header(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
@@ -2703,6 +3137,10 @@
 
     const-string v0, "http://zyfw.bnu.edu.cn/frame/droplist/getDropLists.action"
 
+    invoke-direct {p0, v0}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
     .line 545
     invoke-static {v0}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
 
@@ -2720,6 +3158,10 @@
     const-string v1, "Referer"
 
     const-string v2, "http://zyfw.bnu.edu.cn"
+
+    invoke-direct {p0, v2}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
 
     .line 547
     invoke-interface {v0, v1, v2}, Lorg/jsoup/Connection;->header(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
@@ -3062,6 +3504,10 @@
 
     const-string v1, "http://zyfw.bnu.edu.cn/frame/menus/js/SetTokenkey.jsp"
 
+    invoke-direct {v0, v1}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
     .line 639
     invoke-static {v1}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
 
@@ -3079,6 +3525,10 @@
     const-string v4, "Referer"
 
     const-string v5, "http://zyfw.bnu.edu.cn/student/xscj.stuckcj.jsp?menucode=JW130706"
+
+    invoke-direct {v0, v5}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v5
 
     .line 641
     invoke-interface {v1, v4, v5}, Lorg/jsoup/Connection;->header(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
@@ -3135,6 +3585,10 @@
     if-eqz v6, :cond_9
 
     const-string v6, "http://zyfw.bnu.edu.cn/student/xscj.stuckcj_data.jsp"
+
+    invoke-direct {v0, v6}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v6
 
     .line 656
     invoke-static {v6}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
@@ -3842,6 +4296,10 @@
 
     const-string v0, "http://zyfw.bnu.edu.cn/frame/droplist/getDropLists.action"
 
+    invoke-direct {p0, v0}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
     .line 851
     invoke-static {v0}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
 
@@ -3859,6 +4317,10 @@
     const-string v1, "Referer"
 
     const-string v2, "http://zyfw.bnu.edu.cn"
+
+    invoke-direct {p0, v2}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
 
     .line 853
     invoke-interface {v0, v1, v2}, Lorg/jsoup/Connection;->header(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
@@ -4250,6 +4712,10 @@
 
     move-result-object v0
 
+    invoke-direct {p0, v0}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
     invoke-static {v0}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
 
     move-result-object v0
@@ -4266,6 +4732,10 @@
     const-string v3, "Referer"
 
     const-string v4, "http://zyfw.bnu.edu.cn/student/xkjg.wdkb.jsp?menucode=JW130418"
+
+    invoke-direct {p0, v4}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v4
 
     .line 918
     invoke-interface {v0, v3, v4}, Lorg/jsoup/Connection;->header(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
@@ -4929,6 +5399,10 @@
     # secondAuth call - Step 2 of new login flow
     const-string v5, "https://cas.bnu.edu.cn/cas/secondAuth"
 
+    invoke-direct {p0, v5}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v5
+
     invoke-static {v5}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
 
     move-result-object v5
@@ -5059,6 +5533,10 @@
 
     const-string v5, "https://cas.bnu.edu.cn/cas/login"
 
+    invoke-direct {p0, v5}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v5
+
     .line 394
     invoke-static {v5}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
 
@@ -5076,6 +5554,10 @@
     const-string v6, "Referer"
 
     const-string v7, "http://zyfw.bnu.edu.cn"
+
+    invoke-direct {p0, v7}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v7
 
     .line 396
     invoke-interface {v5, v6, v7}, Lorg/jsoup/Connection;->header(Ljava/lang/String;Ljava/lang/String;)Lorg/jsoup/Connection;
@@ -5440,6 +5922,10 @@
 
     const-string v4, "http://zyfw.bnu.edu.cn"
 
+    invoke-direct {p0, v4}, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->buildUrl(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v4
+
     .line 454
     invoke-static {v4}, Lorg/jsoup/Jsoup;->connect(Ljava/lang/String;)Lorg/jsoup/Connection;
 
@@ -5754,6 +6240,12 @@
     check-cast v0, Lcom/xuhongxu/xiaoyadroid/assistants/education/models/StudentDetails;
 
     iput-object v0, p0, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->studentDetails:Lcom/xuhongxu/xiaoyadroid/assistants/education/models/StudentDetails;
+
+    const/4 v0, 0x0
+
+    check-cast v0, Ljava/lang/Boolean;
+
+    iput-object v0, p0, Lcom/xuhongxu/xiaoyadroid/assistants/education/Assistant;->externalNetworkCache:Ljava/lang/Boolean;
 
     return-void
 .end method

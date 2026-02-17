@@ -7,7 +7,7 @@
 1. 从 [Releases](../../releases) 下载最新的 `bnu-xiaoya-revived.apk`
 2. 确保旧版本的 `北师小鸦 2` 已被卸载
 3. 安装新 APK
-4. 连接校园网后使用
+4. 校园网可直接使用；公网环境会自动走 WebVPN 入口
 
 ## 仓库结构
 
@@ -18,7 +18,7 @@
 
 - 安装 apk 文件时提示 `……更新包与已安装应用的签名不一致`，请先卸载已安装的北师小鸦 2 再重新尝试安装。由于签名不同，修复版本无法与原版共存。
 - 若系统提示 `……不允许从未知来源安装应用`，请按系统提示启用相关设置，允许安装未知来源应用。
-- 修复版应用的登录及课表功能仅在校园网环境下成功进行了测试。
+- 修复版已支持校园网和公网访问。
 
 ## 本地构建
 
@@ -105,6 +105,13 @@ apksigner verify -v bnu-xiaoya-revived.apk
 替换 `校历` 与 `锻炼打卡` 入口通过 CAS 进行认证和跳转
 
 - `apktool_output/res/values/strings.xml`: 更新 `school_calendar_url` 与 `sports_url`
+
+### 2026.2.17 公网双网络入口修复
+
+统一修复公网场景下 `锻炼打卡`、`馆藏查询`、`借阅查询` 被重定向回登录页的问题。
+
+- `Assistant.smali`: 统一 URL 转换逻辑，扩展 `cas/zyfw/jsty/libdiscover` 在公网下的 WebVPN 映射。
+- `BrowserFragment.smali`: `check_login=true` 页面加载前统一调用 URL 适配；Cookie 同时注入 `cas.bnu.edu.cn` 与 `onevpn.bnu.edu.cn`，避免公网登录态丢失。
 
 ## 致谢
 
